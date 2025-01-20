@@ -17,7 +17,7 @@ PluginEditor::PluginEditor (PluginProcessor &p)
     midGain.slider.setColorOverride(juce::Colour::fromRGB(217, 43, 214));
     midGain.label.setPostfix(" dB");
     midGain.label.setMainFont(juce::FontOptions(13));
-    midGain.label.setPostfixFont(juce::FontOptions(10));
+    midGain.label.setPostfixFont(juce::FontOptions(13));
     midGain.label.setShowPlusForPositive(true);
     midGain.label.setMaxDecimals(1);
     midGain.attachToParameter(&processorRef.tree, "mid-gain");
@@ -26,7 +26,7 @@ PluginEditor::PluginEditor (PluginProcessor &p)
     sideGain.slider.setColorOverride(juce::Colour::fromRGB(34, 190, 230));
     sideGain.label.setPostfix(" dB");
     sideGain.label.setMainFont(juce::FontOptions(13));
-    sideGain.label.setPostfixFont(juce::FontOptions(10));
+    sideGain.label.setPostfixFont(juce::FontOptions(13));
     sideGain.label.setShowPlusForPositive(true);
     sideGain.label.setMaxDecimals(1);
     sideGain.attachToParameter(&processorRef.tree, "side-gain");

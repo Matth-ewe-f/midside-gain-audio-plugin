@@ -7,7 +7,7 @@ SliderLabel::SliderLabel() :
     prefix(""), postfix(""), maxDecimals(0), showPlus(false),
     typeNegative(false)
 {
-    setJustification(juce::Justification::centred);
+    setJustification(juce::Justification::centredTop);
     setSelectAllWhenFocused(true);
     onReturnKey = [this]{ onInputReturnKey(); };
 }
@@ -42,6 +42,7 @@ void SliderLabel::updateText(juce::Slider* slider)
     moveCaretToEnd();
     setFont(postfixFont);
     insertTextAtCaret(postfix);
+    setFont(mainFont);
 }
 
 void SliderLabel::setTypeNegativeValues(bool typeNegativeValues)

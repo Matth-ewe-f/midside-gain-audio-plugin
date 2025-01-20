@@ -26,8 +26,8 @@ void ParameterControl::setBounds(juce::Rectangle<int> b)
 void ParameterControl::setBounds(int x, int y, int width, int height)
 {
     bounds = juce::Rectangle<int>(x, y, width, height);
-    slider.setBounds(x, y, width, height - 13);
-    label.setBounds(x, y + height - 12, width, 12);
+    slider.setBounds(x, y, width, height - 15);
+    label.setBounds(x, y + height - 14, width, 14);
 }
 
 void ParameterControl::attachToParameter
