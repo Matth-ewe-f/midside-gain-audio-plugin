@@ -14,6 +14,9 @@ std::unique_ptr<juce::AudioParameterFloat> createIntParameter
 std::unique_ptr<juce::AudioParameterFloat> createPercentageParameter
 (std::string id, std::string name, float defaultVal);
 
+std::unique_ptr<juce::AudioParameterFloat> createGainParameter
+(std::string id, std::string name, float min, float max, float defaultVal);
+
 std::unique_ptr<juce::AudioParameterFloat> createFreqParameter
 (std::string id, std::string name, float defaultVal);
 

@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "ParameterFactory.h"
 
 // === Lifecycle ==============================================================
 PluginProcessor::PluginProcessor()
@@ -29,6 +30,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout
 PluginProcessor::createParameters()
 {
 	juce::AudioProcessorValueTreeState::ParameterLayout parameters;
+	parameters.add(ParameterFactory::createGainParameter(
+		"mid-gain", "Mid Gain", -24, 24, 0
+	));
+	parameters.add(ParameterFactory::createGainParameter(
+		"side-gain", "Side Gain", -24, 24, 0
+	));
 	return parameters;
 }
 
