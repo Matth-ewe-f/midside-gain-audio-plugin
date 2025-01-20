@@ -17,8 +17,12 @@ public:
 
 private:
     // === Layout Constants ===================================================
-    static const int width;
-    static const int height;
+    static const int sliderW;
+    static const int sliderH;
+    static const int sliderTitleH;
+    static const int paddingX;
+    static const int paddingY;
+    static const int margins;
     // === Member Variables ===================================================
     PluginProcessor& processorRef;
     CtmLookAndFeel lookAndFeel;

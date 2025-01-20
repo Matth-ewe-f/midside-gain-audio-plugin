@@ -31,10 +31,10 @@ PluginProcessor::createParameters()
 {
 	juce::AudioProcessorValueTreeState::ParameterLayout parameters;
 	parameters.add(ParameterFactory::createGainParameter(
-		"mid-gain", "Mid Gain", -24, 24, 0
+		"mid-gain", "Mid Gain", -12, 12, 0
 	));
 	parameters.add(ParameterFactory::createGainParameter(
-		"side-gain", "Side Gain", -24, 24, 0
+		"side-gain", "Side Gain", -12, 12, 0
 	));
 	return parameters;
 }

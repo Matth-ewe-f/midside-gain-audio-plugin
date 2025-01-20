@@ -90,16 +90,16 @@ float max, juce::Slider::SliderStyle style, juce::Slider& slider)
     int cx = x + (w / 2);
     // draw the background
     g.setColour(findColour(CtmColourIds::darkOutlineColourId));
-    g.fillRoundedRectangle(cx - 4, y, 8, h, 4);
+    g.fillRoundedRectangle(cx - 6, y, 12, h, 5);
     // draw the fill
     g.setColour(slider.findColour(CtmColourIds::meterFillColourId));
-    g.fillRoundedRectangle(cx - 3, pos, 6, h - (pos - y) - 1, 3);
+    g.fillRoundedRectangle(cx - 5, pos, 10, h - (pos - y) - 1, 5);
     // draw the shadow of the tick
     juce::Colour shadow = slider.findColour(CtmColourIds::darkOutlineColourId);
     shadow = shadow.withAlpha(0.3f);
     g.setColour(shadow);
-    g.fillRoundedRectangle(cx - 7, pos - 2, 16, 6, 3);
+    g.fillRoundedRectangle(cx - 9, pos - 4, 20, 6, 2);
     // draw the tick
     g.setColour(slider.findColour(CtmColourIds::brightOutlineColourId));
-    g.fillRoundedRectangle(cx - 8, pos - 3, 16, 6, 3);
+    g.fillRoundedRectangle(cx - 10, pos - 3, 20, 6, 2);
 }

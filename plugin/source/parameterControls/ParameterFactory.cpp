@@ -78,50 +78,7 @@ float defaultVal)
             s = s.substring(1, s.length() - 1).trim();
         return attemptStringConvert(s, 0);
     });
-    juce::NormalisableRange<float> range(
-        gainMin,
-        gainMax,
-        // denormalization function
-        [] (float min, float max, float value)
-        {
-            float c = (-1 * min) / (abs(min) + max);
-            c = c > 1 ? 1 : (c < 0 ? 0 : c);
-            if (value >= c)
-            {
-                float shift = juce::jmax(min, 0.0f);
-                float scale = max - shift;
-                return scale * pow((value - c) / (1 - c), 2.0f) + shift;
-            }
-            else
-            {
-                float shift = juce::jmin(max, 0.0f);
-                float scale = min - shift;
-                return scale * pow((value - c) / c, 2.0f) + shift;
-            }
-        },
-        // normalization function
-        [] (float min, float max, float value)
-        {
-            float c = (-1 * min) / (abs(min) + max);
-            c = c > 1 ? 1 : (c < 0 ? 0 : c);
-            if (value <= 0)
-            {
-                float shift = juce::jmin(max, 0.0f);
-                return c * (1 - sqrt((value - shift) / (min - shift)));
-            }
-            else
-            {
-                float shift = juce::jmax(min, 0.0f);
-                return (1 - c) * sqrt((value - shift) / (max - shift)) + c;
-            }
-        },
-        // snap function
-        [] (float min, float max, float value)
-        {
-            juce::ignoreUnused(min, max);
-            return std::round(value * 10.0f) / 10.0f;
-        }
-    );
+    juce::NormalisableRange<float> range(gainMin, gainMax, 0.1f);
     return std::make_unique<juce::AudioParameterFloat>(
         id, name, range, defaultVal, attr
     );
