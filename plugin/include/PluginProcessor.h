@@ -66,6 +66,8 @@ public:
     juce::AudioProcessorEditor* createEditor() override;
 
 private:
+    juce::SmoothedValue<float> midGainSmooth;
+    juce::SmoothedValue<float> sideGainSmooth;
 #if PERFETTO
     std::unique_ptr<perfetto::TracingSession> tracingSession;
 #endif

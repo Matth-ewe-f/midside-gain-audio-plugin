@@ -46,8 +46,7 @@ bool PluginProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 	juce::ignoreUnused(layouts);
 	return true;
 #else
-	if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo()
-		&& layouts.getMainInputChannelSet() != juce::AudioChannelSet::mono())
+	if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
 		return false;
 
 #if !JucePlugin_IsSynth
@@ -63,6 +62,10 @@ bool PluginProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 void PluginProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
 	juce::ignoreUnused(sampleRate, samplesPerBlock);
+	midGainSmooth.reset(samplesPerBlock);
+	midGainSmooth.setCurrentAndTargetValue(1);
+	sideGainSmooth.reset(samplesPerBlock);
+	sideGainSmooth.setCurrentAndTargetValue(1);
 }
 
 void PluginProcessor::releaseResources() { }
@@ -76,12 +79,22 @@ void PluginProcessor::processBlock
 	// zeroes out any unused outputs (if there are any)
 	for (auto i = numInputChannels; i < numOutputChannels; i++)
 		buffer.clear(i, 0, buffer.getNumSamples());
-	// process each channel of the audio
-	for (int channel = 0; channel < numInputChannels; ++channel)
+	// get updated gain values
+	float midGain = *tree.getRawParameterValue("mid-gain");
+	midGainSmooth.setTargetValue(pow(10.0f, midGain / 20.0f));
+	float sideGain = *tree.getRawParameterValue("side-gain");
+	sideGainSmooth.setTargetValue(pow(10.0f, sideGain / 20.0f));
+	// process the audio
+	float* left = buffer.getWritePointer(0);
+	float* right = buffer.getWritePointer(1);
+	for (int i = 0;i < buffer.getNumSamples();i++)
 	{
-		auto *channelData = buffer.getWritePointer(channel);
-		juce::ignoreUnused(channelData);
-		// process the audio
+		float mid = left[i] + right[i];
+		float side = left[i] - right[i];
+		mid *= midGainSmooth.getNextValue();
+		side *= sideGainSmooth.getNextValue();
+		left[i] = (mid + side) / 2;
+		right[i] = (mid - side) / 2;
 	}
 }
 
